@@ -272,6 +272,8 @@ class SnippetTask(BackgroundTaskThread):
                     binaryninja.mainthread.execute_on_main_thread(lambda: self.locals["current_ui_context"].navigateForBinaryView(self.active_view, addr))
         if self.context.binaryView:
             self.context.binaryView.commit_undo_actions()
+        # Snippet may have added/removed files (e.g. the downloader); refresh the action registry.
+        execute_on_main_thread_and_wait(Snippets.registerAllSnippets)
 
 
 class Snippets(QDialog):
