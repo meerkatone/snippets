@@ -663,6 +663,8 @@ class Snippets(QDialog):
 
     def editor(self):
         # Open in external editor
+        if self.snippetChanged():
+            self.save()
         path = QUrl.fromLocalFile(self.currentFile)
         QDesktopServices.openUrl(path)
 
